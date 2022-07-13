@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.telecom.Call;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -25,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
-import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
@@ -69,21 +69,36 @@ public class DoctorsActivity extends AppCompatActivity implements RecyclerViewIn
 
         recyclerView = findViewById(R.id.doctorsRecycler);
         initRecycler();
-        Call<List<Doctor>> call = client.getResults();
+        retrofit2.Call<List<Doctor>> call = client.getResults();
+
         call.enqueue(new Callback<List<Doctor>> () {
             @Override
-            public void onResponse(Call<List<Doctor>>  call, Response<List<Doctor>>  response) {
-                 doctorList= response.body();
-                 init();
+            public void onResponse(retrofit2.Call<List<Doctor>> call, Response<List<Doctor>> response) {
+                doctorList= response.body();
+                init();
             }
 
             @Override
-            public void onFailure(Call<List<Doctor>> call, Throwable t) {
+            public void onFailure(retrofit2.Call<List<Doctor>> call, Throwable t) {
                 Toast toast = Toast.makeText(getApplicationContext(),
                         "Something went wrong. Please check your Internet connection and try again later"+t.getMessage(),
                         Toast.LENGTH_LONG);
                 toast.show();
             }
+
+//            @Override
+//            public void onResponse(Call<List<Doctor>> call, Response<List<Doctor>>  response) {
+//                 doctorList= response.body();
+//                 init();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Doctor>> call, Throwable t) {
+//                Toast toast = Toast.makeText(getApplicationContext(),
+//                        "Something went wrong. Please check your Internet connection and try again later"+t.getMessage(),
+//                        Toast.LENGTH_LONG);
+//                toast.show();
+//            }
         });
     }
     private  void initRecycler(){

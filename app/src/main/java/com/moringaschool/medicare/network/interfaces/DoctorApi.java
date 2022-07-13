@@ -11,8 +11,6 @@ import retrofit2.http.Query;
 
 public interface DoctorApi {
     @GET("/doctor")
-     Call<List<Doctor>> getResults(
-            //name it as it is in the API documentation
-    );
+     Call<List<Doctor>> getResults();
 
 }

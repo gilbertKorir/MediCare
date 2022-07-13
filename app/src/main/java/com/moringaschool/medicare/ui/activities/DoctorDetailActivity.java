@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.moringaschool.medicare.R;
 import com.moringaschool.medicare.models.Doctor;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,6 +41,7 @@ public class DoctorDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Intent intend = getIntent();
         Doctor doctor = (Doctor) intend.getSerializableExtra("details");
+        Picasso.get().load(doctor.getImage()).into(drProf);
         drName.setText(String.format("Dr. %s %s", doctor.getFirstName(), doctor.getFirstName()));
         drRate.setText(doctor.getRating().toString());
         drPrc.setText(doctor.getSpecialization());
